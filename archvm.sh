@@ -1,5 +1,20 @@
 #! /bin/bash
 clear
+reboot="A reboot is needed for changes to take effect."
+function reboot_now() {
+	while true; do
+	read -p "Do you want to reboot now? (y/n) " yn
+	case $yn in
+		[yY] ) echo "Rebooting now...";
+			break;;
+		[nN] ) echo "Exiting...";
+			exit;;
+		* ) echo "Invalid response";;
+	esac
+	done
+	sudo reboot
+}
+
 #Detecting if open-vm-tools are installed. If true, uinstall them, else continue
 echo "Checking for open-vm-tools..."
 if [ "$(pacman -Q | awk '/open-vm-tools/ {print }'|wc -l)" -ge 1 ]
@@ -30,18 +45,16 @@ echo "Installing and enabling system service..."
 sudo cp vmwaretools.service  /etc/systemd/system/
 sudo systemctl enable --now vmwaretools.service
 
-echo "Done... A reboot is advised."
-sleep 2
-
 while true; do
-read -p "Do you want to reboot now? (y/n) " yn
+read -p "Do you want to apply additions (pacman tweak, autologin)? (y/n) " yn
 case $yn in
-	[yY] ) echo "Rebooting now...";
-		break;;
-	[nN] ) echo "Exiting...";
+	[yY] ) 	break;;
+	[nN] ) echo $reboot;
+		reboot_now;
 		exit;;
 	* ) echo "Invalid response";;
 esac
 done
-sudo reboot
-
+sudo bash additions.sh
+echo $reboot
+reboot_now
