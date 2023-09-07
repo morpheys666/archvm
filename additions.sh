@@ -8,3 +8,5 @@ sudo sed -i 's/#ParallelDownloads = 5/ParallelDownloads = 5/' /etc/pacman.conf
 #Enabling autologin
 echo "Enabling autologin..."
 sudo sed -i 's/#autologin-user=/autologin-user=chris/g' /etc/lightdm/lightdm.conf
+sudo groupadd -r autologin
+sudo gpasswd -a chris autologin
