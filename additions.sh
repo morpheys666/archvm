@@ -1,5 +1,5 @@
 #!/bin/bash
-USER=chris
+read -p "What is your username? " USER
 
 #Making pacman colourful and use parallel downloads
 
@@ -27,5 +27,6 @@ groupadd -r autologin
 gpasswd -a ${USER} autologin
 
 #Changing desktop background
+mkdir /home/${USER}/Pictures
 cp background.jpg /home/${USER}/Pictures
 xfconf-query -c xfce4-desktop -p  /backdrop/screen0/monitor0/workspace0/last-image -s /home/${USER}/Pictures/background.jpg
