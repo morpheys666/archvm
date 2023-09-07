@@ -12,7 +12,7 @@ function reboot_now() {
 		* ) echo "Invalid response";;
 	esac
 	done
-	sudo reboot
+	reboot
 }
 
 #Detecting if open-vm-tools are installed. If true, uinstall them, else continue
@@ -20,7 +20,7 @@ echo "Checking for open-vm-tools..."
 if [ "$(pacman -Q | awk '/open-vm-tools/ {print }'|wc -l)" -ge 1 ]
 then
 	echo "Uninstalling open-vm-tools..."
-	sudo pacman -R open-vm-tools
+	pacman -R open-vm-tools
 	sleep 2
 else
 	echo "open-vm-tools is not installed."
@@ -29,7 +29,7 @@ fi
 
 #create fake /etc/init.d/rc*.d directories
 echo "Creating fake /etc/init.d/rc*.d directories..."
- for x in {0..6}; do sudo mkdir -p /etc/init.d/rc${x}.d; done
+ for x in {0..6}; do mkdir -p /etc/init.d/rc${x}.d; done
 sleep 2
 
 #download vmware-tools
@@ -38,12 +38,12 @@ curl -H ‘X-Requested-With: XMLHttpRequest’ -o vmware-tools.tar.gz "https://b
 sleep 2
 
 echo "Installing VMware Tools..."
-sudo ./vmware-install.pl
+./vmware-install.pl
 clear
 
 echo "Installing and enabling system service..."
-sudo cp vmwaretools.service  /etc/systemd/system/
-sudo systemctl enable --now vmwaretools.service
+cp vmwaretools.service  /etc/systemd/system/
+systemctl enable --now vmwaretools.service
 
 while true; do
 read -p "Do you want to apply additions (pacman tweak, autologin)? (y/n) " yn
@@ -55,6 +55,6 @@ case $yn in
 	* ) echo "Invalid response";;
 esac
 done
-sudo bash additions.sh
+bash additions.sh
 echo $reboot
 reboot_now
