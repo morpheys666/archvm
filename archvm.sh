@@ -18,7 +18,7 @@ echo "Installing VMware Tools..."
 sudo ./vmware-install.pl
 
 echo "Installing and enabling system service..."
-sudo cp vmwaretools.service > /etc/systemd/system/vmwaretools.service
+sudo cp vmwaretools.service  /etc/systemd/system/
 sudo systemctl enable --now vmwaretools.service
 sleep 2
 
