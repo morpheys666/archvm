@@ -16,10 +16,22 @@ sleep 2
 
 echo "Installing VMware Tools..."
 sudo ./vmware-install.pl
+clear
 
 echo "Installing and enabling system service..."
 sudo cp vmwaretools.service  /etc/systemd/system/
 sudo systemctl enable --now vmwaretools.service
+echo "Done... A reboot is advised."
 sleep 2
+while true; do
+read -p "Do you want to reboot now? (y/n) " yn
+case $yn in
+	[yY] ) echo "Rebooting now...";
+		break;;
+	[nN] ) echo "Exiting...";
+		exit;;
+	* ) Invalid response;;
+esac
+done
+sudo reboot
 
-echo "Done..."
