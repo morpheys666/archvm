@@ -38,7 +38,7 @@ case $yn in
 		break;;
 	[nN] ) echo "Exiting...";
 		exit;;
-	* ) Invalid response;;
+	* ) echo "Invalid response";;
 esac
 done
 sudo reboot
