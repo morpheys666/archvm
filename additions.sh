@@ -29,4 +29,4 @@ gpasswd -a ${USER} autologin
 #Changing desktop background
 mkdir /home/${USER}/Pictures
 cp background.jpg /home/${USER}/Pictures
-xfconf-query -c xfce4-desktop -p  /backdrop/screen0/monitor0/workspace0/last-image -s /home/${USER}/Pictures/background.jpg
+xfconf-query -c xfce4-desktop -p  /backdrop/screen0/monitorVirtual1/workspace0/last-image -s /home/${USER}/Pictures/background.jpg
