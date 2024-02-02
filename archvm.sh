@@ -37,6 +37,10 @@ echo "Downloading and extracting VMware Tools..."
 curl -H ‘X-Requested-With: XMLHttpRequest’ -o vmware-tools.tar.gz "https://brch1005.ddns.net/index.php/s/j49AdQQGX6tfyj7/download" | tar xzf -
 sleep 2
 
+#install curl
+echo "Installing curl..."
+pacman -S curl
+
 echo "Installing VMware Tools..."
 ./vmware-install.pl
 clear
