@@ -54,11 +54,23 @@ read -p "Do you want to apply additions (pacman tweak, autologin)? (y/n) " yn
 case $yn in
 	[yY] ) 	break;;
 	[nN] ) echo $reboot;
-		reboot_now;
+		#reboot_now;
 		exit;;
-	* ) echo "Invalid response";;
+  	* ) echo "Invalid response";;
 esac
 done
 bash additions.sh
+
+while true; do
+read -p "Do you want to download and install paru? (y/n) " yn
+case $yn in
+	[yY] ) break;;
+ 	[nN] ) echo $reboot;
+  		exit;;
+    	* ) echo "Invalid response";;
+esac
+done
+
+bash paru.sh
 echo $reboot
 reboot_now
